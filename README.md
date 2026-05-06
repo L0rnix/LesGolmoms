@@ -1,159 +1,281 @@
-# 🚀 Serveur Minecraft Custom / Fun Creative Pack
+# 🧠💀 Minecraft Brainrot Server Ultimate Edition
 
-Un serveur Minecraft orienté **fun + créatif + troll + automation**, avec plein de features inutiles mais indispensables.
+Le serveur Minecraft le plus inutile technologiquement avancé de l’histoire.
 
-## Features
+Objectif :
+- chaos
+- créativité
+- dopamine instantanée
+- aucune dignité
 
-### 🍆 Zizi volants
-Parce que pourquoi pas.
+---
 
-- Entités custom qui spawn et volent aléatoirement
-- Trails particules
-- Sons random débiles
-- Commandes admin pour spawn/despawn
+# ✨ Features
+
+## 🍆 Zizi Volants 4K RTX
+
+Entités custom ultra importantes.
+
+Features :
+- spawn aléatoire dans le ciel
+- rotation infinie
+- glow enchanté
+- explosion confettis
+- sons moaning absurdes
+- rare golden zizi (0.01%)
 
 Commandes :
 ```bash
 /zizi spawn
-/zizi nuke
 /zizi rain
+/zizi apocalypse
+/zizi boss
+```
+
+Rare events :
+- **Mega Zizi Eclipse**
+- **Flying Sausage Storm**
+
+---
+
+## 🧠 Brainrot System
+
+Le serveur injecte du brainrot directement dans ton cortex.
+
+### Random events
+
+Toutes les 5-30 min :
+
+- pluie de poissons
+- vaches qui explosent
+- gravité inversée
+- creepers pacifistes
+- villageois philosophes
+- zombies qui courent à 300 km/h
+- sol en slime temporaire
+
+Commandes :
+```bash
+/brainrot on
+/brainrot max
+/brainrot nuke
+```
+
+Events :
+- Ohio mode
+- Sigma protocol
+- Skibidi invasion
+- NPC malfunction
+- Goblin economy collapse
+
+---
+
+## 🗿 Sigma Rank System
+
+Ranks inutiles mais stylés.
+
+Grades :
+- NPC
+- Goblin
+- Sigma
+- Omega Sigma
+- Brainrot Lord
+- CEO of Ohio
+- Final Boss
+
+Commandes :
+```bash
+/rankup
+/sigma
+/socialcredit
 ```
 
 ---
 
-## 🎛 Dashboard Web
+## 📱 Web Dashboard de débile
 
-Panel web interactif pour contrôler le serveur comme un gros bourrin.
+Dashboard web full contrôle.
 
-### Fonctions
-- Start / Stop / Restart serveur
-- Kick / Ban / Unban joueurs
-- Give items
-- Spawn events
-- Toggle pluie / jour / nuit
-- Boutons troll
+Boutons :
+- RESTART
+- NUKE
+- SPAWN 1000 CHICKENS
+- ENABLE CHAOS
+- OHIO MODE
+- EXECUTE PLAYER
+- DROP TNT RAIN
 
-### UI
-- Boutons énormes
-- Stats live
-- Console web
-- Dark mode obligatoire
-
-Tech stack :
-- Node.js
-- Express
-- Socket.io
-- Tailwind / React
-- API Minecraft RCON
-
-Exemple dashboard :
-- `RESTART SERVER`
-- `SPAWN ZIZI`
-- `NUKE MAP`
-- `DROP TNT`
+Extra :
+- gros boutons rouges
+- sons click satisfaisants
+- logs temps réel
+- dark mode cyber cringe
 
 ---
 
-## 📟 LCD Stats Display
+## 📟 LCD / OLED Panel
 
-Un écran LCD ou panneau affichage live avec stats serveur.
+Affichage stats inutiles en direct.
 
 Affiche :
-- Joueurs online
-- TPS
-- RAM usage
-- CPU
-- Uptime
-- Death count
-- Kills
-- Blocks cassés
-
-Exemple :
 ```txt
-ONLINE: 12/100
 TPS: 19.8
-RAM: 6.2GB
-UPTIME: 3D 12H
+PING: 42
+ZIZIS: 27
+BRAINROT: 96%
+OHIO LEVEL: CRITICAL
+SIGMA COUNT: 4
 ```
 
-Compatible :
-- LCD I2C
-- OLED
-- Web overlay
+Si brainrot > 90% :
+```txt
+WARNING:
+SERVER BECOMING SENTIENT
+```
 
 ---
 
-## 📜 Logs Discord
+## 🤖 Discord Logs
 
-Logs automatiques sur Discord.
+Webhook Discord full surveillance.
 
-### Events loggés
-- Join / Leave
-- Ban / Kick
-- Death
-- Commandes admin
-- Crash serveur
-- Backup completed
-- Spawn zizi event
+Logs :
+- joins/leaves
+- morts honteuses
+- commandes admin
+- activation Ohio
+- apparition zizi rare
+- crise économique goblin
 
 Exemple :
 ```txt
-[JOIN] Player123 joined
-[CMD] Admin used /zizi rain
-[DEATH] Kevin exploded
-```
-
-Webhook Discord requis.
-
----
-
-## ⚡ Commandes custom
-
-### Admin
-```bash
-/restart
-/freeze <player>
-/troll <player>
-/nuke
-/giveall diamond 64
-```
-
-### Fun
-```bash
-/zizi
-/rainitems
-/randomtp
-/yeet
-```
-
-### Stats
-```bash
-/stats
-/tps
-/ping
-/topkills
+[ALERT] Kevin triggered /brainrot max
+[WARN] Ohio level increased
+[EVENT] Golden zizi spawned
 ```
 
 ---
 
-## 🤖 Automation
+## 🐀 Goblin Economy
 
-- Auto backup toutes les 30 min
-- Auto restart 4h matin
-- Crash recovery
-- Alert Discord si TPS < 15
+Monnaie serveur totalement cassée.
+
+Currency :
+- gobcoins
+- sigma tokens
+- ohio credits
+
+Ways to earn :
+- tuer des poulets
+- vendre dirt
+- survivre au chaos
+
+Ways to lose :
+- taxe aléatoire
+- inflation
+- scam PNJ
+
+Commandes :
+```bash
+/balance
+/pay
+/scam
+/invest
+```
 
 ---
 
-## Folder Structure
+## 🎰 Casino Illégal
+
+100% mauvaise idée.
+
+Games :
+- roulette TNT
+- jackpot diamant
+- russian creeper
+- coinflip
+
+Commandes :
+```bash
+/casino
+/gamble all
+/coinflip
+```
+
+---
+
+## 👹 Boss absurdes
+
+Boss fights inutiles.
+
+Boss :
+- Giant Zizi Prime
+- Skibidi Overlord
+- Ohio Beast
+- Sigma Dragon
+- Rat King
+
+Loot :
+- cursed boots
+- sigma sword
+- goblin hat
+
+---
+
+## 🐸 Events globaux
+
+Events random :
+
+- frog rain
+- potato apocalypse
+- 10000 bats
+- reverse controls
+- blindness friday
+- lava monday
+
+---
+
+## 📦 Crates
+
+Loot boxes débiles.
+
+Possible rewards :
+- dirt
+- 1 emerald
+- 64 TNT
+- instant death
+- sigma title
+- emotional damage
+
+---
+
+## 🧬 Mutation System
+
+Effets random permanents temporaires.
+
+Possible mutations :
+- tiny player
+- giant head
+- rainbow particles
+- squeaky voice
+- speed x5
+- random teleport syndrome
+
+---
+
+## Folder structure
 
 ```bash
 server/
 ├── plugins/
+│   ├── zizi-engine/
+│   ├── brainrot-core/
+│   ├── ohio-module/
+│   ├── sigma-system/
+│   └── goblin-economy/
 ├── dashboard/
-├── discord-bot/
 ├── lcd/
-├── configs/
+├── discord/
 └── backups/
 ```
 
@@ -161,34 +283,37 @@ server/
 
 ## TODO
 
-- [ ] Mini-jeux débiles
-- [ ] Casino illégal
-- [ ] IA NPC toxique
-- [ ] Boss final zizi géant
+- [ ] IA PNJ schizophrène
+- [ ] lore incompréhensible
+- [ ] voice chat proximity insult generator
+- [ ] météo "depression"
 
 ---
 
 ## Installation
 
 ```bash
-git clone repo
+git clone brainrot-server
 npm install
-npm run start
+npm run chaos
 ```
 
-Minecraft :
+Launch server :
 ```bash
-java -Xmx8G -jar server.jar nogui
+java -Xmx12G -jar server.jar nogui
 ```
 
 ---
 
-## Authors
+## Disclaimer
 
-Développé avec beaucoup trop de mauvaises idées.
+Nous ne sommes responsables de :
+- perte de cerveau
+- addiction au sigma rank
+- exposition prolongée au brainrot
 
 ---
 
 ## License
 
-Do whatever you want.
+Do whatever, we lost control already.
