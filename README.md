@@ -1,149 +1,212 @@
-# 🎰 RaspiCasino
+# 🎰 Casino Automation Suite
 
-Un casino en ligne tournant sur Raspberry Pi, avec notifications Discord temps réel et feedback physique via GPIO.
+Package complet de casino web avec automatisation Node-RED, notifications Discord et intégration Raspberry Pi GPIO.
 
-![Stack](https://img.shields.io/badge/Raspberry_Pi-OS_Lite-C51A4A?logo=raspberrypi) ![Node-RED](https://img.shields.io/badge/Node--RED-1880-8F0000?logo=nodered) ![Discord](https://img.shields.io/badge/Discord-Webhook-5865F2?logo=discord) ![HTML](https://img.shields.io/badge/Frontend-HTML%2FJS-F7DF1E?logo=javascript)
+## 📦 Contenu
 
----
+### `index.html`
+Application web casino en HTML/CSS/JavaScript contenant 4 jeux :
 
-## 📦 Contenu du projet
+- 🔴 **Roulette**
+  - Paris plein
+  - Rouge / Noir
+  - Pair / Impair
+  - Douzaines
+  - Animation roue Canvas
 
-```
-raspicasino/
-├── index.html           # Site web du casino (frontend complet)
-├── node-red-flow.json   # Flow Node-RED à importer
-└── GUIDE_RASPBERRY.md   # Guide d'installation détaillé
-```
+- 🎲 **Dice**
+  - 2 dés animés
+  - 8 types de paris
+  - Multiplicateurs automatiques
 
----
+- 🎰 **Slots**
+  - 3 rouleaux animés
+  - Probabilités pondérées
+  - Multiplicateurs :
+    - 7️⃣ x50
+    - 💎 x20
+    - ⭐ x10
+    - 🍒 x5
 
-## 🎮 Jeux disponibles
+- 🃏 **Blackjack**
+  - Deck réel
+  - Tirer
+  - Rester
+  - Doubler
+  - Calcul automatique du score
 
-| Jeu | Règles | Gains max |
-|---|---|---|
-| 🔴 Roulette | Plein, rouge/noir, pair/impair, douzaines | ×36 la mise |
-| 🎲 Dés | Bas/haut, total exact, double | ×35 la mise |
-| 🎰 Slots | 3 rouleaux pondérés, 8 symboles | ×50 la mise |
-| 🃏 Blackjack | Tirer / Rester / Doubler | ×2.5 (blackjack) |
-
----
-
-## 🏗️ Architecture
-
-```
-[Navigateur :3000]
-      │
-      │  POST /casino/result (JSON)
-      ▼
-[Node-RED :1880]
-      ├──▶ Discord Webhook ──▶ 📢 Embed win/lose dans votre salon
-      ├──▶ GPIO Raspberry Pi ──▶ 💡 LED verte (win) / rouge (lose) + buzzer
-      ├──▶ Fichier CSV ──▶ 📁 /home/pi/casino/logs/casino_YYYY-MM-DD.csv
-      └──▶ Stats horaires ──▶ 📊 Rapport automatique Discord
-```
-
----
-
-## ⚡ Installation rapide
-
-### 1. Dépendances
+### Communication API
+Après chaque partie, envoi automatique d’un résultat JSON vers Node-RED :
 
 ```bash
-# Node.js 18+
-curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash -
-sudo apt install -y nodejs
-
-# Node-RED + GPIO
-sudo npm install -g --unsafe-perm node-red node-red-node-pi-gpio
-
-# Lancement au démarrage
-sudo systemctl enable nodered && sudo systemctl start nodered
+POST http://localhost:1880/casino/result
 ```
 
-### 2. Déployer le site
+Exemple payload :
+
+```json
+{
+  "game": "roulette",
+  "result": "win",
+  "amount": 50,
+  "timestamp": 1710000000
+}
+```
+
+---
+
+## ⚙️ `node-red-flow.json`
+
+Flow importable directement dans Node-RED.
+
+### Fonctionnalités
+
+- Réception API depuis le site
+- Gestion CORS
+- Routing victoire / défaite
+- Notifications Discord webhook
+- Contrôle GPIO Raspberry Pi
+
+### Actions automatiques
+
+#### Win
+- Embed Discord vert
+- LED verte ON 2 sec
+- Buzzer activation
+
+#### Lose
+- Embed Discord rouge
+- LED rouge ON 2 sec
+
+### Logging
+Logs CSV journaliers :
 
 ```bash
-mkdir -p /home/pi/casino/logs
-# Copier index.html dans /home/pi/casino/
-cd /home/pi/casino && python3 -m http.server 3000 &
+/home/pi/casino/logs/
 ```
 
-### 3. Importer le flow Node-RED
-
-1. Ouvrir `http://raspberrypi.local:1880`
-2. Menu ☰ → **Import** → coller `node-red-flow.json`
-3. **Deploy**
-
-### 4. Configurer Discord
-
-Dans le nœud **"Discord Webhook"**, remplacer l'URL par votre webhook :
-
-```
-https://discord.com/api/webhooks/WEBHOOK_ID/WEBHOOK_TOKEN
-```
-
-> Créer un webhook : **Paramètres du salon Discord → Intégrations → Webhooks → Nouveau Webhook**
-
----
-
-## 🔌 Câblage GPIO
-
-```
-GPIO 17  (PIN 11)  →  LED Verte  + résistance 330Ω → GND
-GPIO 27  (PIN 13)  →  LED Rouge  + résistance 330Ω → GND
-GPIO 22  (PIN 15)  →  Buzzer (passif)              → GND
-GND      (PIN 6)   →  Masse commune
-```
-
----
-
-## 📡 Comportement temps réel
-
-Chaque partie jouée déclenche :
-
-- **Victoire** → embed Discord vert + LED verte 2s + buzzer
-- **Défaite** → embed Discord rouge + LED rouge 2s
-- **Chaque heure** → rapport de stats automatique dans Discord
-
----
-
-## 🌐 Accès réseau local
-
-```bash
-hostname -I   # Trouver l'IP du Pi
-```
-
-| Service | Adresse |
-|---|---|
-| Casino | `http://192.168.X.X:3000` |
-| Node-RED | `http://192.168.X.X:1880` |
-
----
-
-## 📁 Format des logs CSV
+Format :
 
 ```csv
-timestamp,game,bet,result,amount,balance
-2024-01-15T20:30:00Z,Slots,50,🍒🍒🍒,250,1250
-2024-01-15T20:31:15Z,Roulette,100,N°17 (black),-100,1150
+date,game,result,amount
 ```
 
-Stats rapides :
+### Reporting
+Rapport automatique toutes les heures sur Discord :
+
+- nombre de parties
+- gains
+- pertes
+- ratio winrate
+
+---
+
+## 🍓 `GUIDE_RASPBERRY.md`
+
+Documentation complète :
+
+- Installation Node.js
+- Installation Node-RED
+- Activation service systemd
+- Configuration GPIO
+- Tests curl
+- Dépannage
+
+---
+
+## 🔌 Setup rapide
+
+### 1. Installer Node-RED
+
 ```bash
-awk -F',' '{sum+=$5; count++} END {print count" parties | P&L: "sum"€"}' \
-  /home/pi/casino/logs/casino_$(date +%Y-%m-%d).csv
+bash <(curl -sL https://raw.githubusercontent.com/node-red/linux-installers/master/deb/update-nodejs-and-nodered)
+```
+
+### 2. Lancer
+
+```bash
+node-red-start
+```
+
+Accès :
+
+```bash
+http://localhost:1880
 ```
 
 ---
 
-## 🛠️ Stack technique
+## Discord Webhook
 
-- **Frontend** : HTML5 / CSS3 / JS vanilla — zéro dépendance, Canvas API pour la roue
-- **Backend** : Node-RED — orchestration des événements
-- **Hardware** : Raspberry Pi GPIO via `node-red-node-pi-gpio`
-- **Notifications** : Discord Webhooks (embeds rich)
-- **Logs** : CSV plat, un fichier par jour
+Créer webhook :
+
+1. Discord
+2. Paramètres salon
+3. Intégrations
+4. Webhooks
+
+Puis remplacer URL dans le node :
+
+```txt
+Discord Webhook
+```
 
 ---
 
-*Pour usage privé uniquement. Le jeu peut créer une dépendance.*
+## 🚦 GPIO recommandé
+
+| Composant | GPIO |
+|---|---|
+| LED verte | 17 |
+| LED rouge | 27 |
+| buzzer | 22 |
+
+---
+
+## Import flow
+
+Dans Node-RED :
+
+```txt
+Menu → Import → node-red-flow.json
+```
+
+Deploy.
+
+---
+
+## Test API
+
+```bash
+curl -X POST http://localhost:1880/casino/result \
+-H "Content-Type: application/json" \
+-d '{"game":"slots","result":"win","amount":100}'
+```
+
+---
+
+## Architecture
+
+```txt
+index.html
+   ↓ POST JSON
+Node-RED
+   ├── Discord webhook
+   ├── GPIO LEDs
+   ├── Buzzer
+   └── CSV logs
+```
+
+---
+
+## Notes
+
+Projet éducatif / démonstration technique.
+
+Utilisation locale recommandée.
+
+---
+
+## Auteur
+
+LesGolmons
