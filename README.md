@@ -1,319 +1,228 @@
-# 🧠💀 Minecraft Brainrot Server Ultimate Edition
+# 🎰 RaspiCasino — Guide d'installation complet
 
-Le serveur Minecraft le plus inutile technologiquement avancé de l’histoire.
+## Architecture
 
-Objectif :
-- chaos
-- créativité
-- dopamine instantanée
-- aucune dignité
-
----
-
-# ✨ Features
-
-## 🍆 Zizi Volants 4K RTX
-
-Entités custom ultra importantes.
-
-Features :
-- spawn aléatoire dans le ciel
-- rotation infinie
-- glow enchanté
-- explosion confettis
-- sons moaning absurdes
-- rare golden zizi (0.01%)
-
-Commandes :
-```bash
-/zizi spawn
-/zizi rain
-/zizi apocalypse
-/zizi boss
 ```
-
-Rare events :
-- **Mega Zizi Eclipse**
-- **Flying Sausage Storm**
-
----
-
-## 🧠 Brainrot System
-
-Le serveur injecte du brainrot directement dans ton cortex.
-
-### Random events
-
-Toutes les 5-30 min :
-
-- pluie de poissons
-- vaches qui explosent
-- gravité inversée
-- creepers pacifistes
-- villageois philosophes
-- zombies qui courent à 300 km/h
-- sol en slime temporaire
-
-Commandes :
-```bash
-/brainrot on
-/brainrot max
-/brainrot nuke
-```
-
-Events :
-- Ohio mode
-- Sigma protocol
-- Skibidi invasion
-- NPC malfunction
-- Goblin economy collapse
-
----
-
-## 🗿 Sigma Rank System
-
-Ranks inutiles mais stylés.
-
-Grades :
-- NPC
-- Goblin
-- Sigma
-- Omega Sigma
-- Brainrot Lord
-- CEO of Ohio
-- Final Boss
-
-Commandes :
-```bash
-/rankup
-/sigma
-/socialcredit
+[Navigateur] → [index.html] → POST /casino/result → [Node-RED :1880]
+                                                          ├── Discord Webhook (embed)
+                                                          ├── GPIO LEDs (Raspberry Pi)
+                                                          └── Logs CSV
 ```
 
 ---
 
-## 📱 Web Dashboard de débile
+## 1. Prérequis matériel (Raspberry Pi)
 
-Dashboard web full contrôle.
+- Raspberry Pi 3B+ / 4 (ou Zero 2W)
+- Carte SD 16 Go minimum (Raspberry Pi OS Lite recommandé)
+- 1 LED verte + 1 LED rouge + 1 buzzer passif
+- 3 résistances 330Ω
+- Câbles jumper
 
-Boutons :
-- RESTART
-- NUKE
-- SPAWN 1000 CHICKENS
-- ENABLE CHAOS
-- OHIO MODE
-- EXECUTE PLAYER
-- DROP TNT RAIN
+### Schéma de câblage
 
-Extra :
-- gros boutons rouges
-- sons click satisfaisants
-- logs temps réel
-- dark mode cyber cringe
-
----
-
-## 📟 LCD / OLED Panel
-
-Affichage stats inutiles en direct.
-
-Affiche :
-```txt
-TPS: 19.8
-PING: 42
-ZIZIS: 27
-BRAINROT: 96%
-OHIO LEVEL: CRITICAL
-SIGMA COUNT: 4
 ```
-
-Si brainrot > 90% :
-```txt
-WARNING:
-SERVER BECOMING SENTIENT
+Raspberry Pi GPIO     Composant
+─────────────────     ─────────
+PIN 11 (GPIO 17)  →   LED Verte (+ résistance 330Ω vers GND)
+PIN 13 (GPIO 27)  →   LED Rouge (+ résistance 330Ω vers GND)
+PIN 15 (GPIO 22)  →   Buzzer (+ vers PIN, - vers GND)
+PIN 6  (GND)      →   Toutes les masses
 ```
 
 ---
 
-## 🤖 Discord Logs
-
-Webhook Discord full surveillance.
-
-Logs :
-- joins/leaves
-- morts honteuses
-- commandes admin
-- activation Ohio
-- apparition zizi rare
-- crise économique goblin
-
-Exemple :
-```txt
-[ALERT] Kevin triggered /brainrot max
-[WARN] Ohio level increased
-[EVENT] Golden zizi spawned
-```
-
----
-
-## 🐀 Goblin Economy
-
-Monnaie serveur totalement cassée.
-
-Currency :
-- gobcoins
-- sigma tokens
-- ohio credits
-
-Ways to earn :
-- tuer des poulets
-- vendre dirt
-- survivre au chaos
-
-Ways to lose :
-- taxe aléatoire
-- inflation
-- scam PNJ
-
-Commandes :
-```bash
-/balance
-/pay
-/scam
-/invest
-```
-
----
-
-## 🎰 Casino Illégal
-
-100% mauvaise idée.
-
-Games :
-- roulette TNT
-- jackpot diamant
-- russian creeper
-- coinflip
-
-Commandes :
-```bash
-/casino
-/gamble all
-/coinflip
-```
-
----
-
-## 👹 Boss absurdes
-
-Boss fights inutiles.
-
-Boss :
-- Giant Zizi Prime
-- Skibidi Overlord
-- Ohio Beast
-- Sigma Dragon
-- Rat King
-
-Loot :
-- cursed boots
-- sigma sword
-- goblin hat
-
----
-
-## 🐸 Events globaux
-
-Events random :
-
-- frog rain
-- potato apocalypse
-- 10000 bats
-- reverse controls
-- blindness friday
-- lava monday
-
----
-
-## 📦 Crates
-
-Loot boxes débiles.
-
-Possible rewards :
-- dirt
-- 1 emerald
-- 64 TNT
-- instant death
-- sigma title
-- emotional damage
-
----
-
-## 🧬 Mutation System
-
-Effets random permanents temporaires.
-
-Possible mutations :
-- tiny player
-- giant head
-- rainbow particles
-- squeaky voice
-- speed x5
-- random teleport syndrome
-
----
-
-## Folder structure
+## 2. Installation Raspberry Pi OS
 
 ```bash
-server/
-├── plugins/
-│   ├── zizi-engine/
-│   ├── brainrot-core/
-│   ├── ohio-module/
-│   ├── sigma-system/
-│   └── goblin-economy/
-├── dashboard/
-├── lcd/
-├── discord/
-└── backups/
+# Après avoir flashé la carte SD avec Raspberry Pi Imager
+# Activer SSH dans les options avancées de l'imager
+
+# Connexion SSH
+ssh pi@raspberrypi.local
+
+# Mise à jour du système
+sudo apt update && sudo apt upgrade -y
 ```
 
 ---
 
-## TODO
-
-- [ ] IA PNJ schizophrène
-- [ ] lore incompréhensible
-- [ ] voice chat proximity insult generator
-- [ ] météo "depression"
-
----
-
-## Installation
+## 3. Installation Node.js & Node-RED
 
 ```bash
-git clone brainrot-server
-npm install
-npm run chaos
+# Installation Node.js 18+
+curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash -
+sudo apt install -y nodejs
+
+# Vérification
+node --version   # doit afficher v18.x ou supérieur
+npm --version
+
+# Installation Node-RED
+sudo npm install -g --unsafe-perm node-red
+
+# Installation du nœud GPIO pour Raspberry Pi
+npm install -g node-red-node-pi-gpio
+
+# Démarrage Node-RED au boot
+sudo systemctl enable nodered.service
+sudo systemctl start nodered.service
+
+# Vérifier que Node-RED tourne
+sudo systemctl status nodered.service
 ```
 
-Launch server :
+---
+
+## 4. Déploiement du site web
+
 ```bash
-java -Xmx12G -jar server.jar nogui
+# Créer le dossier du projet
+mkdir -p /home/pi/casino/logs
+cd /home/pi/casino
+
+# Copier index.html dans ce dossier (via SCP ou nano)
+# Depuis votre machine locale :
+scp index.html pi@raspberrypi.local:/home/pi/casino/
+
+# Servir le site avec un serveur statique
+sudo npm install -g serve
+serve /home/pi/casino -p 3000
+
+# Ou avec Python (déjà installé) :
+cd /home/pi/casino && python3 -m http.server 3000 &
+```
+
+### Lancement automatique au démarrage
+
+```bash
+# Créer un service systemd pour le serveur web
+sudo nano /etc/systemd/system/casino-web.service
+```
+
+Contenu du fichier :
+```ini
+[Unit]
+Description=RaspiCasino Web Server
+After=network.target
+
+[Service]
+ExecStart=/usr/bin/python3 -m http.server 3000
+WorkingDirectory=/home/pi/casino
+User=pi
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
+```
+
+```bash
+sudo systemctl daemon-reload
+sudo systemctl enable casino-web.service
+sudo systemctl start casino-web.service
 ```
 
 ---
 
-## Disclaimer
+## 5. Import du flow Node-RED
 
-Nous ne sommes responsables de :
-- perte de cerveau
-- addiction au sigma rank
-- exposition prolongée au brainrot
+1. Ouvrir Node-RED : http://raspberrypi.local:1880
+2. Cliquer sur ☰ (menu hamburger) en haut à droite
+3. **Import** → **Clipboard**
+4. Coller le contenu du fichier `node-red-flow.json`
+5. Cliquer **Import**
 
 ---
 
-## License
+## 6. Configuration Discord
 
-Do whatever, we lost control already.
+### Créer un webhook Discord
+
+1. Ouvrir Discord → choisir votre serveur
+2. Paramètres du canal → **Intégrations** → **Webhooks**
+3. **Nouveau Webhook** → donner un nom (ex: "RaspiCasino")
+4. Copier l'URL du webhook
+
+### Configurer dans Node-RED
+
+1. Dans le flow importé, double-cliquer sur le nœud **"Discord Webhook"**
+2. Remplacer l'URL :
+   ```
+   https://discord.com/api/webhooks/VOTRE_WEBHOOK_ID/VOTRE_WEBHOOK_TOKEN
+   ```
+3. Cliquer **Done** puis **Deploy** (bouton rouge en haut à droite)
+
+---
+
+## 7. Test de l'installation
+
+```bash
+# Tester le endpoint Node-RED manuellement
+curl -X POST http://localhost:1880/casino/result \
+  -H "Content-Type: application/json" \
+  -d '{"game":"Slots","bet":50,"result":"🍒🍒🍒","amount":150,"balance":1150}'
+```
+
+Vous devriez voir :
+- ✅ Un message embed dans votre canal Discord
+- ✅ La LED verte s'allumer 2 secondes
+- ✅ Une ligne ajoutée dans `/home/pi/casino/logs/casino_YYYY-MM-DD.csv`
+
+---
+
+## 8. Accéder au casino depuis le réseau local
+
+```bash
+# Trouver l'IP du Raspberry Pi
+hostname -I
+```
+
+Puis sur n'importe quel appareil du réseau :
+- **Site casino** : http://192.168.X.X:3000
+- **Node-RED** : http://192.168.X.X:1880
+
+---
+
+## 9. Structure des logs CSV
+
+```
+timestamp,game,bet,result,amount,balance
+2024-01-15T20:30:00Z,Slots,50,🍒🍒🍒,250,1250
+2024-01-15T20:31:15Z,Roulette,100,N°17 (black),-100,1150
+2024-01-15T20:32:44Z,Blackjack,75,J:21 vs D:18,75,1225
+```
+
+---
+
+## 10. Commandes utiles
+
+```bash
+# Voir les logs Node-RED en temps réel
+sudo journalctl -f -u nodered
+
+# Redémarrer Node-RED
+sudo systemctl restart nodered
+
+# Voir les logs casino du jour
+tail -f /home/pi/casino/logs/casino_$(date +%Y-%m-%d).csv
+
+# Statistiques rapides
+awk -F',' '{sum+=$5; count++} END {print "Parties:"count, "P&L:"sum"€"}' \
+  /home/pi/casino/logs/casino_$(date +%Y-%m-%d).csv
+```
+
+---
+
+## 11. Dépannage
+
+| Problème | Solution |
+|---|---|
+| Node-RED inaccessible | `sudo systemctl restart nodered` |
+| CORS bloqué sur le site | Vérifier le nœud "CORS Preflight" dans Node-RED |
+| LED ne s'allume pas | Vérifier les PINs GPIO (BCM vs Board) dans les nœuds rpi-gpio |
+| Discord ne reçoit rien | Vérifier l'URL du webhook et le déploiement Node-RED |
+| Site inaccessible | `sudo systemctl restart casino-web` |
+
+---
+
+*RaspiCasino — Pour usage privé uniquement. Le jeu peut créer une dépendance.*
