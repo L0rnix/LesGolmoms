@@ -1,212 +1,320 @@
-# 🎰 Casino Automation Suite
+# 🎰 Projet Casino Connecté
 
-Package complet de casino web avec automatisation Node-RED, notifications Discord et intégration Raspberry Pi GPIO.
+## 📌 Présentation
 
-## 📦 Contenu
+Ce projet est un système de **casino connecté** combinant plusieurs technologies :
 
-### `index.html`
-Application web casino en HTML/CSS/JavaScript contenant 4 jeux :
+* 🎮 Un serveur Minecraft
+* 🤖 Un bot Discord
+* 🍓 Un Raspberry Pi
+* 🔌 Des GPIO / pins physiques
+* 🔄 Node-RED pour l’automatisation
 
-- 🔴 **Roulette**
-  - Paris plein
-  - Rouge / Noir
-  - Pair / Impair
-  - Douzaines
-  - Animation roue Canvas
+L’objectif est de créer une expérience interactive où les événements dans Minecraft, Discord et le matériel physique communiquent ensemble en temps réel.
 
-- 🎲 **Dice**
-  - 2 dés animés
-  - 8 types de paris
-  - Multiplicateurs automatiques
+---
 
-- 🎰 **Slots**
-  - 3 rouleaux animés
-  - Probabilités pondérées
-  - Multiplicateurs :
-    - 7️⃣ x50
-    - 💎 x20
-    - ⭐ x10
-    - 🍒 x5
+# 🏗️ Architecture du projet
 
-- 🃏 **Blackjack**
-  - Deck réel
-  - Tirer
-  - Rester
-  - Doubler
-  - Calcul automatique du score
-
-### Communication API
-Après chaque partie, envoi automatique d’un résultat JSON vers Node-RED :
-
-```bash
-POST http://localhost:1880/casino/result
-```
-
-Exemple payload :
-
-```json
-{
-  "game": "roulette",
-  "result": "win",
-  "amount": 50,
-  "timestamp": 1710000000
-}
+```text
+Minecraft Server
+       │
+       ▼
+ Discord Bot ─────► Node-RED ◄───── Raspberry Pi GPIO
+       │
+       └────────► Events ◄────────┘
 ```
 
 ---
 
-## ⚙️ `node-red-flow.json`
+# ⚙️ Technologies utilisées
 
-Flow importable directement dans Node-RED.
+## 🎮 Minecraft
 
-### Fonctionnalités
+Le serveur Minecraft sert de plateforme principale pour les joueurs.
 
-- Réception API depuis le site
-- Gestion CORS
-- Routing victoire / défaite
-- Notifications Discord webhook
-- Contrôle GPIO Raspberry Pi
+Fonctionnalités possibles :
 
-### Actions automatiques
+* Gestion des joueurs
+* Mini-jeux de casino
+* Système d’argent virtuel
+* Déclenchement d’événements
+* Communication avec Discord
 
-#### Win
-- Embed Discord vert
-- LED verte ON 2 sec
-- Buzzer activation
+Technologies :
 
-#### Lose
-- Embed Discord rouge
-- LED rouge ON 2 sec
-
-### Logging
-Logs CSV journaliers :
-
-```bash
-/home/pi/casino/logs/
-```
-
-Format :
-
-```csv
-date,game,result,amount
-```
-
-### Reporting
-Rapport automatique toutes les heures sur Discord :
-
-- nombre de parties
-- gains
-- pertes
-- ratio winrate
+* PaperMC / Spigot
+* Plugins Java ou scripts
+* Événements et automatisation
 
 ---
 
-## 🍓 `GUIDE_RASPBERRY.md`
+## 🤖 Bot Discord
 
-Documentation complète :
+Le bot Discord permet de contrôler et surveiller le casino.
 
-- Installation Node.js
-- Installation Node-RED
-- Activation service systemd
-- Configuration GPIO
-- Tests curl
-- Dépannage
+Fonctionnalités :
+
+* Commandes de gestion
+* Notifications en temps réel
+* Logs des événements
+* Interaction avec Minecraft
+* Contrôle du Raspberry Pi
+
+Exemple de commandes :
+
+```bash
+/play
+/balance
+/jackpot
+/restart
+/status
+```
+
+Technologies :
+
+* Node.js
+* discord.js
 
 ---
 
-## 🔌 Setup rapide
+## 🍓 Raspberry Pi
 
-### 1. Installer Node-RED
+Le Raspberry Pi permet de connecter le projet au monde physique.
 
-```bash
-bash <(curl -sL https://raw.githubusercontent.com/node-red/linux-installers/master/deb/update-nodejs-and-nodered)
+Fonctionnalités possibles :
+
+* Contrôle des LEDs
+* Boutons physiques
+* Relais
+* Affichage écran LCD
+* Détection d’actions physiques
+
+Exemple :
+
+* Un jackpot Minecraft allume une LED physique
+* Un bouton physique lance une animation dans Minecraft
+
+---
+
+## 🔌 GPIO / Pins
+
+Les pins GPIO du Raspberry Pi sont utilisées pour connecter différents composants.
+
+Exemples de composants :
+
+* LEDs
+* Boutons
+* Buzzers
+* Écrans
+* Relais
+
+---
+
+## 🔄 Node-RED
+
+Node-RED sert de centre d’automatisation.
+
+Fonctionnalités :
+
+* Gestion des flux
+* Communication entre services
+* Traitement des événements
+* Dashboard de monitoring
+* MQTT et automatisation
+
+Exemple de flux :
+
+```text
+Minecraft Event
+      ↓
+Discord Notification
+      ↓
+Activation GPIO
+      ↓
+Animation LED
 ```
 
-### 2. Lancer
+---
+
+# 📂 Structure du projet
+
+```text
+project/
+│
+├── minecraft-server/
+├── discord-bot/
+├── node-red/
+├── raspberry/
+├── scripts/
+├── config/
+└── README.md
+```
+
+---
+
+# ▶️ Démarrage du système
+
+Le projet est conçu pour être contrôlé principalement depuis **Node-RED**.
+
+## 🔄 Fonctionnement
+
+* Le serveur Minecraft est lancé séparément
+* Le bot Discord est lancé via Node-RED
+* Les scripts Raspberry Pi sont lancés via Node-RED
+* Les automatisations et interactions passent par Node-RED
+
+Architecture de lancement :
+
+```text
+Minecraft Server (manuel)
+        │
+        ▼
+     Node-RED
+    ├── Lance le bot Discord
+    ├── Contrôle le Raspberry Pi
+    ├── Gère les GPIO
+    └── Automatise les événements
+```
+
+---
+
+# 🚀 Installation
+
+## 1. Cloner le projet
 
 ```bash
-node-red-start
+git clone https://github.com/votre-projet/casino-connected.git
+cd casino-connected
+```
+
+---
+
+## 2. Installer le bot Discord
+
+```bash
+cd discord-bot
+npm install
+```
+
+Créer un fichier `.env` :
+
+```env
+DISCORD_TOKEN=your_token
+CLIENT_ID=your_client_id
+GUILD_ID=your_guild_id
+```
+
+---
+
+## 3. Installer Node-RED
+
+```bash
+npm install -g --unsafe-perm node-red
+```
+
+Lancer Node-RED :
+
+```bash
+node-red
 ```
 
 Accès :
 
-```bash
+```text
 http://localhost:1880
 ```
 
 ---
 
-## Discord Webhook
+## 4. Configurer le Raspberry Pi
 
-Créer webhook :
-
-1. Discord
-2. Paramètres salon
-3. Intégrations
-4. Webhooks
-
-Puis remplacer URL dans le node :
-
-```txt
-Discord Webhook
-```
-
----
-
-## 🚦 GPIO recommandé
-
-| Composant | GPIO |
-|---|---|
-| LED verte | 17 |
-| LED rouge | 27 |
-| buzzer | 22 |
-
----
-
-## Import flow
-
-Dans Node-RED :
-
-```txt
-Menu → Import → node-red-flow.json
-```
-
-Deploy.
-
----
-
-## Test API
+Mettre à jour le système :
 
 ```bash
-curl -X POST http://localhost:1880/casino/result \
--H "Content-Type: application/json" \
--d '{"game":"slots","result":"win","amount":100}'
+sudo apt update
+sudo apt upgrade
+```
+
+Installer Node.js :
+
+```bash
+curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
+sudo apt install -y nodejs
+```
+
+Installer les dépendances GPIO :
+
+```bash
+npm install onoff
 ```
 
 ---
 
-## Architecture
+## 5. Lancer le projet
 
-```txt
-index.html
-   ↓ POST JSON
-Node-RED
-   ├── Discord webhook
-   ├── GPIO LEDs
-   ├── Buzzer
-   └── CSV logs
+### Serveur Minecraft
+
+Le serveur Minecraft doit être lancé manuellement :
+
+```bash
+java -jar server.jar
 ```
 
 ---
 
-## Notes
+### Node-RED
 
-Projet éducatif / démonstration technique.
+Node-RED sert de contrôleur principal du système.
 
-Utilisation locale recommandée.
+Lancer Node-RED :
+
+```bash
+node-red
+```
+
+Depuis Node-RED, il est possible de :
+
+* Démarrer le bot Discord
+* Lancer les scripts Raspberry Pi
+* Contrôler les GPIO
+* Automatiser les événements du casino
+* Gérer les interactions entre les services
 
 ---
 
-## Auteur
+# 🔐 Sécurité
 
-LesGolmons
+* Ne jamais partager les tokens Discord
+* Utiliser des variables d’environnement
+* Limiter les permissions du bot
+* Sécuriser l’accès SSH du Raspberry Pi
+
+---
+
+# 💡 Idées d’améliorations
+
+* 🎰 Machines à sous physiques
+* 📊 Dashboard web
+* 💸 Système de monnaie avancé
+* 🧠 Intelligence artificielle
+* 📱 Application mobile
+* 🔔 Notifications push
+
+---
+
+# 👨‍💻 Auteurs
+
+Projet développé avec :
+
+* Node.js
+* Discord.js
+* Minecraft
+* Raspberry Pi
+* Node-RED
+
+---
+
+# 📜 Licence
+
+Projet open-source sous licence MIT.
